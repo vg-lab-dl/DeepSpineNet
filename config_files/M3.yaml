@@ -1,0 +1,57 @@
+Output:
+  model_save_path: "output/M3/model/"
+  log_path: "output/M3/log"
+  model_load_path: "output/M3/model/best/"
+Training:
+  learning_rate_type: "None"
+  learning_rate: 0.0001
+  batch_size: 8
+  epochs: 100
+  optimizer: "Adam" # supports [Adam, Adagrad, RMSProp]
+  validate_iterations: 1000 # saves weights every n iterations
+  convergence_iterations: 1000
+  seed: 42
+Test:
+  images_output_path: 'output/M3/images'
+  batch_size: 1
+  data_path:
+    - 'test.tfrecords'
+Network:
+  loss_type: 'cross_entropy'
+  load_model: False
+  input_size: 300   # Input feature width/height
+  output_size: 116  # Output feature width/height (as defined by model)
+  input_depth: 66  # Input depth
+  output_depth: 10
+  base_filt: 16
+  activation_function: "relu" # supports [relu, leaky_relu]
+  droput: False
+  droput_probability: 0.15 # value in range [0 - 1]
+  kernel_init: 'He'  # He, normal
+  kernel_reg: 'L2'
+  reg_factor: 0.0001
+  mixed_precision: True
+  use_shallow_network: True
+Data:
+  num_classes: 3
+  train_paths:
+    - 'train.tfrecords'
+  validation_paths:
+    - 'validation.tfrecords'
+  data_augmentation:
+    translate: false
+    flip: true
+    rotate: true
+    probability: 0.3
+  seg_threshold: 0.1
+  scaling: "FullRange" # FullRange, DatasetNorm, DatasetSTD, StackNorm, StackSTD, PatchNorm, PatchSTD
+  padding_type: 'REFLECT'
+  padding_type_depth: 'CONSTANT'
+  buffer_size: 750
+  d_weight: False
+  use_class_weights: True
+  class_weights:
+    - 0.08105905259223387
+    - 0.43503071236048835
+    - 0.48391023504727787
+
